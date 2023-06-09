@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 
 const NavigationBar = () => {
-  const user = true;
+  const user = false;
   const navOptions = (
     <>
       <li>
@@ -93,7 +93,7 @@ const NavigationBar = () => {
             </ul>
           </div>
         ) : (
-          <Link className="btn btn-outline btn-primary">Login</Link>
+          <Link to='/login' className="btn btn-outline btn-primary">Login</Link>
         )}
       </div>
     </div>
