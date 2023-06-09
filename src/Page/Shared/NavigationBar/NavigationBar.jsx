@@ -1,38 +1,48 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const NavigationBar = () => {
-  const user = false;
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut().then().catch();
+  };
   const navOptions = (
     <>
       <li>
-        <NavLink to='/' className={({isActive})=> (isActive ? 'bg-sky-200': '')}>Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) => (isActive ? "bg-sky-200" : "")}
+        >
+          Home
+        </NavLink>
       </li>
       <li>
         <details>
           <summary>Classes</summary>
           <ul className="p-2">
             <li>
-              <NavLink to='/guitar'>Guitar Classes</NavLink>
+              <NavLink to="/guitar">Guitar Classes</NavLink>
             </li>
             <li>
-              <NavLink to='/piano'>Piano Classes</NavLink>
+              <NavLink to="/piano">Piano Classes</NavLink>
             </li>
             <li>
-              <NavLink to='/violin'>Violin Classes</NavLink>
+              <NavLink to="/violin">Violin Classes</NavLink>
             </li>
           </ul>
         </details>
       </li>
       <li>
-        <NavLink to='/instructor'>Instructors</NavLink>
+        <NavLink to="/instructor">Instructors</NavLink>
       </li>
       {user && (
         <li>
-          <NavLink to='/dashboard'>Dashboard</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
         </li>
       )}
       <li>
-        <NavLink to='/about'>About us</NavLink>
+        <NavLink to="/about">About us</NavLink>
       </li>
     </>
   );
@@ -88,12 +98,14 @@ const NavigationBar = () => {
                 </a>
               </li>
               <li>
-                <a>Logout</a>
+                <p onClick={handleLogOut}>Logout</p>
               </li>
             </ul>
           </div>
         ) : (
-          <Link to='/login' className="btn btn-outline btn-primary">Login</Link>
+          <Link to="/login" className="btn btn-outline btn-primary">
+            Login
+          </Link>
         )}
       </div>
     </div>
