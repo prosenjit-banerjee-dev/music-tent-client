@@ -1,7 +1,11 @@
+import PopularClasses from "../PopularClasses/PopularClasses";
+import Slider from "../Slider/Slider";
+
 const Home = () => {
   return (
     <div>
-      <h1 className="text-3xl font-semibold">This is Home</h1>
+    <Slider></Slider>
+    <PopularClasses></PopularClasses>
     </div>
   );
 };

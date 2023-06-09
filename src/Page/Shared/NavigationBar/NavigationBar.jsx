@@ -83,7 +83,7 @@ const NavigationBar = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photo} />
+                <img src={user?.photoURL} />
               </div>
             </label>
             <ul
@@ -92,9 +92,9 @@ const NavigationBar = () => {
             >
               <li>
                 <a className="justify-between">
-                  Profile
+                 {user?.displayName}
                   {/* Todo identify users role */}
-                  <span className="badge">New</span>
+                  <span className="badge"></span>
                 </a>
               </li>
               <li>

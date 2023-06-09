@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -26,11 +27,22 @@ const SignUp = () => {
       alert("password not match");
       return;
     }
-    console.log(data.email, data.password, data.name, data.photo);
     createUser(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        updateUserProfile(data.name, data.photo)
+          .then(() => {
+            // Profile updated!
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Successfully Registered",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+          .catch(() => {});
       })
       .catch((error) => {
         const errorMessage = error.message;
