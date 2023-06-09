@@ -3,40 +3,69 @@ import { Link } from "react-router-dom";
 import bg from "../../assets/bg.webp";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 
-const Login = () => {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data.email, data.password);
+    if (!(data.password===data.confirmPassword)) {
+      return errors;
+    }
+    console.log(data.email, data.password,data.name,data.photo);
   };
   return (
     <>
-      <div className="hero shadow-2xl">
-        <img src={bg} alt="" />
+      <div className="hero shadow-2xl bg-sky-300">
         <div className="flex flex-col lg:flex-row gap-x-40 items-center">
           <div className="card-body">
             <div className="text-center">
               <h1 className="text-5xl font-bold mb-6">
-                Login Your Account
+                Register Your Account
               </h1>
-              <p>Login using Social Network</p>
+              <p>SignUp using Social Network</p>
 
               <div className="mt-6 flex flex-col items-center">
                 <button className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center">
                   <FaGoogle className="text-red-500 me-4"></FaGoogle>
-                  SignIn With google
+                  SignUp With google
                 </button>
                 <p className="btn btn-outline btn-wide mb-4 flex justify-center items-center p-2">
                   <FaGithub className="me-4"></FaGithub>
-                  SignIn With github
+                  SignUp With github
                 </p>
               </div>
             </div>
             <div className="divider">OR</div>
             <form onSubmit={handleSubmit(onSubmit)} className="card">
+            <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Your Name</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  {...register("name", { required: true, maxLength: 80 })}
+                  placeholder="name"
+                  className="input input-bordered bg-base-200"
+                />
+                {errors.name && (
+                  <span className="text-red-600">Name is required</span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  type="text"
+                  name="photo"
+                  {...register("photo", { required: true })}
+                  placeholder="photo Url"
+                  className="input input-bordered bg-base-200"
+                />
+              </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -83,6 +112,31 @@ const Login = () => {
                 )}
               </div>
               <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  {...register("confirmPassword", {
+                    required: true,
+                    maxLength: 20,
+                    minLength: 6,
+                    pattern: /(?=.*[A-Z])/,
+                  })}
+                  placeholder="confirm password"
+                  className="input input-bordered bg-base-200"
+                />
+                {errors.confirmPassword && (
+                  <span className="text-red-600">Password did not match</span>
+                )}
+                {errors.confirmPassword && (
+                  <span className="text-red-600">Password did not match</span>
+                )}
+              
+                
+              </div>
+              <div className="form-control">
               <label className="label">
                   <Link to="" className="label-text-alt link link-hover">
                     Forgot password?
@@ -92,17 +146,17 @@ const Login = () => {
               <div className="form-control mt-6">
                 <input
                   type="submit"
-                  value="login"
+                  value="SignUp"
                   className="btn btn-primary"
                 />
               </div>
             </form>
           </div>
           <div className="card-body rounded-xl">
-            <h1 className="text-3xl font-bold mb-4 ">New Here?</h1>
-            <span>SignUp and discover a great amount of new opportunities</span>
-            <Link to="/signup" className="btn btn-outline btn-primary mt-4">
-              SignUp
+            <h1 className="text-3xl font-bold mb-4 ">Already have an account?</h1>
+            <span>Login and discover a great amount of new opportunities</span>
+            <Link to="/login" className="btn btn-outline btn-primary mt-4">
+             Login Now
             </Link>
           </div>
         </div>
@@ -111,4 +165,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
