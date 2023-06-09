@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const SignUp = () => {
+  const { createUser } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -20,11 +22,20 @@ const SignUp = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
   const onSubmit = (data) => {
-    if ((data.password !== data.confirmPassword)) {
-      alert('password not match');
+    if (data.password !== data.confirmPassword) {
+      alert("password not match");
       return;
     }
     console.log(data.email, data.password, data.name, data.photo);
+    createUser(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
   return (
     <>
