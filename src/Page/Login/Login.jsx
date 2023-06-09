@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import bg from "../../assets/bg.webp";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
-import { useState } from "react";
-
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -17,7 +18,15 @@ const Login = () => {
   };
   const onSubmit = (data) => {
     console.log(data.email, data.password);
-    
+    signIn(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
   return (
     <>
@@ -98,7 +107,6 @@ const Login = () => {
                     Password must be one special character
                   </span>
                 )}
-                
               </div>
               <div className="form-control">
                 <label className="label">
