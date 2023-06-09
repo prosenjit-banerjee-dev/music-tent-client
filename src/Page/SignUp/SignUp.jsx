@@ -1,19 +1,30 @@
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import bg from "../../assets/bg.webp";
-import { FaGoogle, FaGithub } from "react-icons/fa";
+import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
+import { useState } from "react";
 
 const SignUp = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
+  const watchPassword = watch("password", "");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
   const onSubmit = (data) => {
-    if (!(data.password===data.confirmPassword)) {
-      return errors;
+    if ((data.password !== data.confirmPassword)) {
+      alert('password not match');
+      return;
     }
-    console.log(data.email, data.password,data.name,data.photo);
+    console.log(data.email, data.password, data.name, data.photo);
   };
   return (
     <>
@@ -21,9 +32,7 @@ const SignUp = () => {
         <div className="flex flex-col lg:flex-row gap-x-40 items-center">
           <div className="card-body">
             <div className="text-center">
-              <h1 className="text-5xl font-bold mb-6">
-                Register Your Account
-              </h1>
+              <h1 className="text-5xl font-bold mb-6">Register Your Account</h1>
               <p>SignUp using Social Network</p>
 
               <div className="mt-6 flex flex-col items-center">
@@ -39,7 +48,7 @@ const SignUp = () => {
             </div>
             <div className="divider">OR</div>
             <form onSubmit={handleSubmit(onSubmit)} className="card">
-            <div className="form-control">
+              <div className="form-control">
                 <label className="label">
                   <span className="label-text">Your Name</span>
                 </label>
@@ -85,18 +94,26 @@ const SignUp = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  {...register("password", {
-                    required: true,
-                    maxLength: 20,
-                    minLength: 6,
-                    pattern: /(?=.*[A-Z])/,
-                  })}
-                  placeholder="password"
-                  className="input input-bordered bg-base-200"
-                />
+                <div className="input-group">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    {...register("password", {
+                      required: true,
+                      maxLength: 20,
+                      minLength: 6,
+                      pattern: /((?=.*?[A-Z])(?=.*?[#?!@$%^&*-]))/,
+                    })}
+                    placeholder="password"
+                    className="input input-bordered bg-base-200 w-full"
+                  />
+                  <button
+                    className="btn btn-square"
+                    onClick={handleTogglePassword}
+                  >
+                    {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                  </button>
+                </div>
                 {errors.password?.type === "required" && (
                   <span className="text-red-600">Password is required</span>
                 )}
@@ -110,34 +127,68 @@ const SignUp = () => {
                     Password must be one uppercase letter
                   </span>
                 )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-600">
+                    Password must be one special character
+                  </span>
+                )}
               </div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Confirm Password</span>
                 </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  {...register("confirmPassword", {
-                    required: true,
-                    maxLength: 20,
-                    minLength: 6,
-                    pattern: /(?=.*[A-Z])/,
-                  })}
-                  placeholder="confirm password"
-                  className="input input-bordered bg-base-200"
-                />
-                {errors.confirmPassword && (
-                  <span className="text-red-600">Password did not match</span>
+                <div className="input-group">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    {...register("confirmPassword", {
+                      required: true,
+                      maxLength: 20,
+                      minLength: 6,
+                      pattern: /((?=.*?[A-Z])(?=.*?[#?!@$%^&*-]))/,
+                      validate: (value) =>
+                        value === watchPassword || "Passwords not match",
+                    })}
+                    placeholder="confirm password"
+                    className="input input-bordered bg-base-200 w-full"
+                  />
+                  <button
+                    className="btn btn-square"
+                    onClick={handleToggleConfirmPassword}
+                  >
+                    {showConfirmPassword ? (
+                      <FaEye></FaEye>
+                    ) : (
+                      <FaEyeSlash></FaEyeSlash>
+                    )}
+                  </button>
+                </div>
+                {errors.password?.type === "required" && (
+                  <span className="text-red-600">Password is required</span>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-red-600">
+                    Password must be 6 characters
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-600">
+                    Password must be one uppercase letter
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-600">
+                    Password must be one special character
+                  </span>
                 )}
                 {errors.confirmPassword && (
-                  <span className="text-red-600">Password did not match</span>
+                  <p className="text-red-600">
+                    {errors.confirmPassword.message}
+                  </p>
                 )}
-              
-                
               </div>
               <div className="form-control">
-              <label className="label">
+                <label className="label">
                   <Link to="" className="label-text-alt link link-hover">
                     Forgot password?
                   </Link>
@@ -153,10 +204,12 @@ const SignUp = () => {
             </form>
           </div>
           <div className="card-body rounded-xl">
-            <h1 className="text-3xl font-bold mb-4 ">Already have an account?</h1>
+            <h1 className="text-3xl font-bold mb-4 ">
+              Already have an account?
+            </h1>
             <span>Login and discover a great amount of new opportunities</span>
             <Link to="/login" className="btn btn-outline btn-primary mt-4">
-             Login Now
+              Login Now
             </Link>
           </div>
         </div>
