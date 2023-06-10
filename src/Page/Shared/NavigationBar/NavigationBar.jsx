@@ -34,7 +34,7 @@ const NavigationBar = () => {
         </details>
       </li>
       <li>
-        <NavLink to="/instructor">Instructors</NavLink>
+        <NavLink to="/instructors">Instructors</NavLink>
       </li>
       {user && (
         <li>
