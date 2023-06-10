@@ -5,7 +5,7 @@ import { MdOutlineWatchLater } from "react-icons/md";
 const Footer = () => {
   return (
     <footer>
-      <div className="footer p-10 bg-neutral text-neutral-content">
+      <div className="footer p-10 bg-sky-900 text-neutral-content">
         <div>
           <p>
             Music Tent
@@ -48,7 +48,7 @@ const Footer = () => {
         </div>
       </div>
       <hr />
-      <div className="footer items-center p-4 bg-neutral text-neutral-content">
+      <div className="footer items-center p-4 bg-sky-900 text-neutral-content">
         <div className="items-center grid-flow-col">
           <p>Copyright © 2023 - All right reserved by Music Tent</p>
         </div>
