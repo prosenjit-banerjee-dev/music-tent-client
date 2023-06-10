@@ -34,7 +34,8 @@ const NavigationBar = () => {
         </details>
       </li>
       <li>
-        <NavLink to="/instructors">Instructors</NavLink>
+        <NavLink to="/instructors"
+        className={({ isActive }) => (isActive ? "bg-sky-200" : "")}>Instructors</NavLink>
       </li>
       {user && (
         <li>
@@ -42,7 +43,7 @@ const NavigationBar = () => {
         </li>
       )}
       <li>
-        <NavLink to="/about">About us</NavLink>
+        <NavLink to="/aboutus">About us</NavLink>
       </li>
     </>
   );

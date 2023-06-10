@@ -4,8 +4,10 @@ import slider1 from "../../../assets/Slider/slider1.webp";
 import slider2 from "../../../assets/Slider/slide2.jpg";
 import slider3 from "../../../assets/Slider/slider3.jpg";
 import slider4 from "../../../assets/Slider/slider4.jpg";
+import { Bounce } from "react-awesome-reveal";
 
-const Slider = () => {
+
+const SliderSection = () => {
   return (
     <Carousel>
       <div className="hero">
@@ -13,14 +15,17 @@ const Slider = () => {
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="lg:max-w-md">
+        <Bounce cascade>
             <h1 className="mb-5 text-5xl font-bold">Music Tent</h1>
             <p className="mb-5">
               Welcome to Music Tent Instrumental Summer School! <br /> Join us
               for inspiring lessons, ensemble rehearsals, and performances led
               by accomplished educators and musicians.
             </p>
+            </Bounce>
             <button className="btn btn-primary">Join Classes</button>
           </div>
+          
         </div>
       </div>
       <div className="hero ">
@@ -72,4 +77,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default SliderSection;

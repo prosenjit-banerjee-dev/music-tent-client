@@ -1,11 +1,12 @@
 import PopularInstructors from "../Popular Instructors/PopularInstructors";
 import PopularClasses from "../PopularClasses/PopularClasses";
-import Slider from "../Slider/Slider";
+import SliderSection from "../Slider/SliderSection";
+
 
 const Home = () => {
   return (
     <div>
-    <Slider></Slider>
+    <SliderSection></SliderSection>
     <PopularClasses></PopularClasses>
     <PopularInstructors></PopularInstructors>
     {/* TODO Popular Instructor and extra section */}
