@@ -7,7 +7,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, googleLogIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -15,11 +15,12 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
   const onSubmit = (data) => {
     console.log(data.email, data.password);
+    // Email Login
     signIn(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -33,6 +34,31 @@ const Login = () => {
         alert("Wrong password/username");
       });
   };
+  const handleGoogleLogin = () => {
+    googleLogIn()
+      .then((result) => {
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+
+        const saveUser = {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+          role: "student",
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            navigate(from, { replace: true });
+          });
+      })
+      .error((error) => console.error(error.message));
+  };
   return (
     <>
       <div className="hero shadow-2xl">
@@ -43,14 +69,13 @@ const Login = () => {
               <h1 className="text-5xl font-bold mb-6">Login Your Account</h1>
               <p>Login using Social Network</p>
               <div className="mt-6 flex flex-col items-center">
-                <button className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center">
+                <button
+                  onClick={handleGoogleLogin}
+                  className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center"
+                >
                   <FaGoogle className="text-red-500 me-4"></FaGoogle>
                   SignIn With google
                 </button>
-                <p className="btn btn-outline btn-wide mb-4 flex justify-center items-center p-2">
-                  <FaGithub className="me-4"></FaGithub>
-                  SignIn With github
-                </p>
               </div>
             </div>
             <div className="divider">OR</div>

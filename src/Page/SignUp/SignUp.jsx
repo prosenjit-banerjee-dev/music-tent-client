@@ -5,9 +5,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
-
 const SignUp = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile,googleLogIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -16,7 +15,7 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset
+    reset,
   } = useForm();
   const watchPassword = watch("password", "");
   const [showPassword, setShowPassword] = useState(false);
@@ -49,9 +48,9 @@ const SignUp = () => {
                 if (data.insertedId) {
                   // Profile updated!
                   Swal.fire({
-                    title: 'Yeah!',
-                    text: 'Registered Successfully',
-                  })
+                    title: "Yeah!",
+                    text: "Registered Successfully",
+                  });
                   reset();
                   navigate(from, { replace: true });
                 }
@@ -60,6 +59,31 @@ const SignUp = () => {
           .catch(() => {});
       })
       .catch(() => {});
+  };
+  const handleGoogleLogin = () => {
+    googleLogIn()
+      .then((result) => {
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+
+        const saveUser = {
+          name: loggedInUser.displayName,
+          email: loggedInUser.email,
+          role: "student",
+        };
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then(() => {
+            navigate(from, { replace: true });
+          });
+      })
+      .error((error) => console.error(error.message));
   };
   return (
     <>
@@ -71,14 +95,11 @@ const SignUp = () => {
               <p>SignUp using Social Network</p>
 
               <div className="mt-6 flex flex-col items-center">
-                <button className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center">
+                <button onClick={handleGoogleLogin} className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center">
                   <FaGoogle className="text-red-500 me-4"></FaGoogle>
                   SignUp With google
                 </button>
-                <p className="btn btn-outline btn-wide mb-4 flex justify-center items-center p-2">
-                  <FaGithub className="me-4"></FaGithub>
-                  SignUp With github
-                </p>
+               
               </div>
             </div>
             <div className="divider">OR</div>
