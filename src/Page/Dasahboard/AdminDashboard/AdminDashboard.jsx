@@ -11,7 +11,7 @@ import AddClasses from "../AddClasses/AddClasses";
 import DashBoard from "../Dashboard/DashBoard";
 const AdminDashboard = () => {
   const isAdmin = true;
-  const isInstructor = false;
+  const isInstructor = true;
   const isStudent = false;
   return (
     <div className="flex h-screen">

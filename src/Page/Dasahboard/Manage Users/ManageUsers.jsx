@@ -1,54 +1,131 @@
+import { useQuery } from "@tanstack/react-query";
 import { Bounce } from "react-awesome-reveal";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
+  const { data: users = [], refetch } = useQuery(["users"], async () => {
+    const res = await fetch("http://localhost:5000/users");
+    return res.json();
+  });
+  console.log(users);
+  const handleMakeAdmin = (user) => {
+    fetch(`http://localhost:5000/users/${user?._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ role: "admin" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is an Admin Now!`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
+  const handleMakeInstructor = (user) => {
+    fetch(`http://localhost:5000/users/${user?._id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ role: "instructor" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} is an Instructor Now!`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
+
   return (
-    <div className="overflow-x-auto container">
+    <div className="overflow-x-auto">
       <Bounce cascade>
         <h1 className="mb-10 mt-5 text-3xl font-bold text-center">
           Manage Users
         </h1>
       </Bounce>
-      <table className="max-w-md mx-auto table rounded-xl">
+      <table className="max-w-lg mx-auto table rounded-xl">
         {/* head */}
         <thead className="bg-sky-600 text-white">
           <tr>
             <th>Index</th>
             <th>User Picture</th>
-            <th>User Info</th>
+            <th>User Name</th>
+            <th>User Email</th>
             <th>Role Change</th>
           </tr>
         </thead>
         <tbody className="bg-sky-100">
-          <th>1</th>
-          <td>
-            <div className="avatar">
-              <div className="mask mask-squircle w-12 h-12">
-                <img
-                  src="/tailwind-css-component-profile-2@56w.png"
-                  alt="Avatar Tailwind CSS Component"
-                />
-              </div>
-            </div>
-          </td>
-          <td>
-            <div>
-              <div className="font-bold">
-                Hart Hagerty
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Desktop Support Technician
-                </span>
-              </div>
-            </div>
-          </td>
-          <th className="flex flex-col gap-y-2">
-            <button className="btn btn-outline mb-2 btn-error btn-xs">
-              Admin
-            </button>
-            <button className="btn btn-outline mb-2 btn-info btn-xs">
-              Instructor
-            </button>
-          </th>
+          {users?.map((user, index) => (
+            <tr key={user?._id}>
+              <th>{index + 1}</th>
+              <td>
+                <div className="avatar">
+                  <div className="mask mask-squircle w-12 h-12">
+                    <img
+                      src={user?.photoURL}
+                      alt="Avatar Tailwind CSS Component"
+                    />
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div>
+                  <div className="font-bold">
+                    {user?.name}
+                    <br />
+                    <span className="text-xs badge">({user?.role})</span>
+                  </div>
+                </div>
+              </td>
+              <td>{user?.email}</td>
+              <th className="flex flex-col gap-y-2">
+                {user?.role === "admin" ? (
+                  <button className="btn mb-2 btn-xs" disabled="disabled">
+                    Admin
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleMakeAdmin(user)}
+                    className="btn btn-outline mb-2 btn-error btn-xs"
+                  >
+                    Admin
+                  </button>
+                )}
+
+                {user?.role === "instructor" ? (
+                  <button className="btn mb-2 btn-xs" disabled="disabled">
+                    Instructor
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleMakeInstructor(user)}
+                    className="btn btn-outline mb-2 btn-error btn-xs"
+                  >
+                    Instructor
+                  </button>
+                )}
+              </th>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
