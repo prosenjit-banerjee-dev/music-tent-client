@@ -81,10 +81,10 @@ const NavigationBar = () => {
       </div>
       <div className="navbar-end">
         {user ? (
-          <div className="dropdown dropdown-end">
+          <div className="flex items-center gap-4 dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL} />
+                <img title={user?.displayName} src={user?.photoURL} />
               </div>
             </label>
             <ul
@@ -102,6 +102,9 @@ const NavigationBar = () => {
                 <p onClick={handleLogOut}>Logout</p>
               </li>
             </ul>
+            <button onClick={handleLogOut} className="btn btn-outline btn-primary">
+            LogOut
+          </button>
           </div>
         ) : (
           <Link to="/login" className="btn btn-outline btn-primary">

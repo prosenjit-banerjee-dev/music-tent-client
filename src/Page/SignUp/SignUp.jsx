@@ -1,53 +1,65 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
+
 const SignUp = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset
   } = useForm();
   const watchPassword = watch("password", "");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const handleToggleConfirmPassword = () => {
-    setShowConfirmPassword(!showConfirmPassword);
-  };
   const onSubmit = (data) => {
-    if (data.password !== data.confirmPassword) {
-      alert("password not match");
-      return;
+    const { password, confirmPassword } = data;
+    if (password !== confirmPassword) {
+      return Swal.fire("The password and confirm password do not match");
     }
     createUser(data.email, data.password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
+        const loggedUser = userCredential.user;
+        console.log(loggedUser);
         updateUserProfile(data.name, data.photo)
           .then(() => {
-            // Profile updated!
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Successfully Registered",
-              showConfirmButton: false,
-              timer: 1500,
-            });
+            const saveUser = {
+              name: data.name,
+              email: data.email,
+              photoUrl: data.photo,
+              role: "student",
+            };
+            fetch("http://localhost:5000/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(saveUser),
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.insertedId) {
+                  // Profile updated!
+                  Swal.fire({
+                    title: 'Yeah!',
+                    text: 'Registered Successfully',
+                  })
+                  reset();
+                  navigate(from, { replace: true });
+                }
+              });
           })
           .catch(() => {});
       })
-      .catch((error) => {
-        const errorMessage = error.message;
-        console.log(errorMessage);
-      });
+      .catch(() => {});
   };
   return (
     <>
@@ -130,12 +142,6 @@ const SignUp = () => {
                     placeholder="password"
                     className="input input-bordered bg-base-200 w-full"
                   />
-                  <button
-                    className="btn btn-square"
-                    onClick={handleTogglePassword}
-                  >
-                    {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
-                  </button>
                 </div>
                 {errors.password?.type === "required" && (
                   <span className="text-red-600">Password is required</span>
@@ -156,13 +162,13 @@ const SignUp = () => {
                   </span>
                 )}
               </div>
-              <div className="form-control">
+              <div className="form-control mb-2">
                 <label className="label">
                   <span className="label-text">Confirm Password</span>
                 </label>
                 <div className="input-group">
                   <input
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={showPassword ? "text" : "password"}
                     name="confirmPassword"
                     {...register("confirmPassword", {
                       required: true,
@@ -175,16 +181,6 @@ const SignUp = () => {
                     placeholder="confirm password"
                     className="input input-bordered bg-base-200 w-full"
                   />
-                  <button
-                    className="btn btn-square"
-                    onClick={handleToggleConfirmPassword}
-                  >
-                    {showConfirmPassword ? (
-                      <FaEye></FaEye>
-                    ) : (
-                      <FaEyeSlash></FaEyeSlash>
-                    )}
-                  </button>
                 </div>
                 {errors.password?.type === "required" && (
                   <span className="text-red-600">Password is required</span>
@@ -210,6 +206,16 @@ const SignUp = () => {
                   </p>
                 )}
               </div>
+
+              <label onClick={() => setShowPassword(!showPassword)}>
+                <p className="btn btn-xs btn-outline btn-primary mr-2">
+                  {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+                </p>
+                <span className="label-text">
+                  {showPassword ? "Hide" : "Show"} Password
+                </span>
+              </label>
+
               <div className="form-control">
                 <label className="label">
                   <Link to="" className="label-text-alt link link-hover">

@@ -1,31 +1,36 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import bg from "../../assets/bg.webp";
 import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
   const onSubmit = (data) => {
     console.log(data.email, data.password);
     signIn(data.email, data.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        Swal.fire("Yah!", "You Login Successfully!", "success");
+        reset();
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.log(errorMessage);
+        alert("Wrong password/username");
       });
   };
   return (
@@ -82,12 +87,12 @@ const Login = () => {
                     placeholder="password"
                     className="input input-bordered bg-base-200 w-full"
                   />
-                  <button
+                  <p
                     className="btn btn-square"
-                    onClick={handleTogglePassword}
+                    onClick={() => setShowPassword(!showPassword)}
                   >
                     {showPassword ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
-                  </button>
+                  </p>
                 </div>
                 {errors.password?.type === "required" && (
                   <span className="text-red-600">Password is required</span>
