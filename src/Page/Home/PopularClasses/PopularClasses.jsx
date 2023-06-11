@@ -23,12 +23,7 @@ const PopularClasses = () => {
           <div className="card-body">
             <h2 className="card-title">Piano</h2>
             <p>Students:</p>
-            <p></p>
-            <div className="card-actions justify-center">
-              <Link to="">
-                <button className="btn btn-primary">Learn More..</button>
-              </Link>
-            </div>
+            
           </div>
         </div>
         {/* card 2 */}
@@ -39,12 +34,7 @@ const PopularClasses = () => {
           <div className="card-body">
             <h2 className="card-title">Piano</h2>
             <p>Students:</p>
-            <p></p>
-            <div className="card-actions justify-center">
-              <Link to="">
-                <button className="btn btn-primary">Learn More..</button>
-              </Link>
-            </div>
+            
           </div>
         </div>
         {/* card 3 */}
@@ -55,12 +45,7 @@ const PopularClasses = () => {
           <div className="card-body">
             <h2 className="card-title">Piano</h2>
             <p>Students:</p>
-            <p></p>
-            <div className="card-actions justify-center">
-              <Link to="">
-                <button className="btn btn-primary">Learn More..</button>
-              </Link>
-            </div>
+            
           </div>
         </div>
         {/* card 4 */}
@@ -71,12 +56,7 @@ const PopularClasses = () => {
           <div className="card-body">
             <h2 className="card-title">Piano</h2>
             <p>Students:</p>
-            <p></p>
-            <div className="card-actions justify-center">
-              <Link to="">
-                <button className="btn btn-primary">Learn More..</button>
-              </Link>
-            </div>
+            
           </div>
         </div>
         {/* card 5 */}
@@ -87,12 +67,7 @@ const PopularClasses = () => {
           <div className="card-body">
             <h2 className="card-title">Piano</h2>
             <p>Students:</p>
-            <p></p>
-            <div className="card-actions justify-center">
-              <Link to="">
-                <button className="btn btn-primary">Learn More..</button>
-              </Link>
-            </div>
+            
           </div>
         </div>
         {/* card 6 */}
@@ -103,12 +78,7 @@ const PopularClasses = () => {
           <div className="card-body">
             <h2 className="card-title">Piano</h2>
             <p>Students:</p>
-            <p></p>
-            <div className="card-actions justify-center">
-              <Link to="">
-                <button className="btn btn-primary">Learn More..</button>
-              </Link>
-            </div>
+            
           </div>
         </div>
       </div>

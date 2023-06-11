@@ -6,7 +6,8 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile,googleLogIn } = useContext(AuthContext);
+  const { createUser, updateUserProfile, googleLogIn } =
+    useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -95,11 +96,13 @@ const SignUp = () => {
               <p>SignUp using Social Network</p>
 
               <div className="mt-6 flex flex-col items-center">
-                <button onClick={handleGoogleLogin} className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center">
+                <button
+                  onClick={handleGoogleLogin}
+                  className=" btn btn-outline btn-wide btn-primary mb-4 flex justify-center items-center"
+                >
                   <FaGoogle className="text-red-500 me-4"></FaGoogle>
-                  SignUp With google
+                  SignIn With google
                 </button>
-               
               </div>
             </div>
             <div className="divider">OR</div>

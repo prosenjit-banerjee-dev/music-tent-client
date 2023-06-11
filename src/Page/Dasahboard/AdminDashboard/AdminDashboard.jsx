@@ -10,13 +10,24 @@ import { Link } from "react-router-dom";
 import AddClasses from "../AddClasses/AddClasses";
 import DashBoard from "../Dashboard/DashBoard";
 const AdminDashboard = () => {
+  const isAdmin = true;
+  const isInstructor = false;
+  const isStudent = false;
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="w-64 bg-sky-900">
         {/* Sidebar Content */}
         <div className="p-4 text-white">
-          <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+          {isAdmin && (
+            <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+          )}
+          {isInstructor && (
+            <h1 className="text-xl font-semibold">Instructor Dashboard</h1>
+          )}
+          {isStudent && (
+            <h1 className="text-xl font-semibold">Student Dashboard</h1>
+          )}
         </div>
 
         <nav className="mt-8">
@@ -27,34 +38,60 @@ const AdminDashboard = () => {
             <HiChartPie className="fas fa-chart-pie mr-2"></HiChartPie>
             Dashboard
           </Link>
-          <Link
-            to="/manageclasses"
-            className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
-          >
-            <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
-            Manage Classes
-          </Link>
-          <Link
-            to="/addclasses"
-            className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
-          >
-            <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
-            Add a Class
-          </Link>
-          <Link
-            to="/myclasses"
-            className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
-          >
-            <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
-            My Classes
-          </Link>
-          <Link
-            to="/manageusers"
-            className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
-          >
-            <HiUser className="fas fa-users mr-2"></HiUser>
-            Manage Users
-          </Link>
+          {isAdmin && (
+            <>
+              <Link
+                to="/manageclasses"
+                className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
+              >
+                <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
+                Manage Classes
+              </Link>
+              <Link
+                to="/manageusers"
+                className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
+              >
+                <HiUser className="fas fa-users mr-2"></HiUser>
+                Manage Users
+              </Link>
+            </>
+          )}
+          {isInstructor && (
+            <>
+              <Link
+                to="/addclasses"
+                className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
+              >
+                <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
+                Add a Class
+              </Link>
+              <Link
+                to="/myclasses"
+                className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
+              >
+                <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
+                My Classes
+              </Link>
+            </>
+          )}
+          {isStudent && (
+            <>
+              <Link
+                to="/addclasses"
+                className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
+              >
+                <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
+                My Selected Classes
+              </Link>
+              <Link
+                to="/myclasses"
+                className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
+              >
+                <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>
+                My Enrolled Classes
+              </Link>
+            </>
+          )}
           <Link
             to="#"
             className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
