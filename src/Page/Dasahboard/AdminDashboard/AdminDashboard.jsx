@@ -10,10 +10,11 @@ import { Link } from "react-router-dom";
 import AddClasses from "../AddClasses/AddClasses";
 import DashBoard from "../Dashboard/DashBoard";
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
-import { AuthContext } from "../../../providers/AuthProvider";
 const AdminDashboard = () => {
-  const {user} = useContext(AuthContext);
+  const { data: users = []} = useQuery(["users"], async () => {
+    const res = await fetch("http://localhost:5000/users");
+    return res.json();
+  });
   const isAdmin = true;
   const isInstructor = true;
   const isStudent = true;
