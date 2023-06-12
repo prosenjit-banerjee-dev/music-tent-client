@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 import piano from "../../../assets/Popular Classes/piano-class.jpg";
+import { useEffect, useState } from "react";
 
 const PopularClasses = () => {
+  const [popularClasses, setPopularClasses] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/popularClasses")
+      .then((res) => res.json())
+      .then((data) => setPopularClasses(data));
+  }, []);
   return (
-    <div className="mb-20">
+    <div className="px-4 py-12 rounded-lg">
       <div className="max-w-lg mx-auto mt-20 mb-10 text-center">
         <p className="text-orange-400 uppercase mb-2 font-semibold">
           Our class
@@ -15,72 +22,20 @@ const PopularClasses = () => {
         </p>
       </div>
       <div className="grid lg:grid-cols-3 gap-10">
-        {/* card 1 */}
-        <div className="card w-96 bg-base-100 shadow-xl image-full">
-          <figure>
-            <img src={piano} alt="Piano Class" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Piano</h2>
-            <p>Students:</p>
-            
+        {popularClasses?.map((popularClasses) => (
+          <div
+            key={popularClasses._id}
+            className="card w-96 bg-sky-100 shadow-2xl image-full"
+          >
+            <figure>
+              <img src={popularClasses.picture} alt={popularClasses.imageAlt} />
+            </figure>
+            <div className="card-body text-center">Class Name:
+              <h2 className="text-3xl ">{popularClasses.name}</h2>
+              <p>Total Students: {popularClasses.students}</p>
+            </div>
           </div>
-        </div>
-        {/* card 2 */}
-        <div className="card w-96 bg-base-100 shadow-xl image-full">
-          <figure>
-            <img src={piano} alt="Piano Class" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Piano</h2>
-            <p>Students:</p>
-            
-          </div>
-        </div>
-        {/* card 3 */}
-        <div className="card w-96 bg-base-100 shadow-xl image-full">
-          <figure>
-            <img src={piano} alt="Piano Class" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Piano</h2>
-            <p>Students:</p>
-            
-          </div>
-        </div>
-        {/* card 4 */}
-        <div className="card w-96 bg-base-100 shadow-xl image-full">
-          <figure>
-            <img src={piano} alt="Piano Class" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Piano</h2>
-            <p>Students:</p>
-            
-          </div>
-        </div>
-        {/* card 5 */}
-        <div className="card w-96 bg-base-100 shadow-xl image-full">
-          <figure>
-            <img src={piano} alt="Piano Class" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Piano</h2>
-            <p>Students:</p>
-            
-          </div>
-        </div>
-        {/* card 6 */}
-        <div className="card w-96 bg-base-100 shadow-xl image-full">
-          <figure>
-            <img src={piano} alt="Piano Class" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Piano</h2>
-            <p>Students:</p>
-            
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

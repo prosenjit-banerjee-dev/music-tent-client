@@ -18,20 +18,12 @@ const NavigationBar = () => {
         </NavLink>
       </li>
       <li>
-        <details>
-          <summary>Classes</summary>
-          <ul className="p-2">
-            <li>
-              <NavLink to="/guitar">Guitar Classes</NavLink>
-            </li>
-            <li>
-              <NavLink to="/piano">Piano Classes</NavLink>
-            </li>
-            <li>
-              <NavLink to="/violin">Violin Classes</NavLink>
-            </li>
-          </ul>
-        </details>
+        <NavLink
+          to="/classes"
+          className={({ isActive }) => (isActive ? "btn-info" : "")}
+        >
+          Classes
+        </NavLink>
       </li>
       <li>
         <NavLink
@@ -88,7 +80,9 @@ const NavigationBar = () => {
             {navOptions}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl text-sky-100">Music Tent</Link>
+        <Link className="btn btn-ghost normal-case text-xl text-sky-100">
+          Music Tent
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 font-semibold text-white">

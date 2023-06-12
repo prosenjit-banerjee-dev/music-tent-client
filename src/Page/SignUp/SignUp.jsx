@@ -67,9 +67,10 @@ const SignUp = () => {
         const loggedInUser = result.user;
         console.log(loggedInUser);
 
-        const saveUser = {
+        const savedUser = {
           name: loggedInUser.displayName,
           email: loggedInUser.email,
+          photoUrl: loggedInUser.photoURL,
           role: "student",
         };
         fetch("http://localhost:5000/users", {
@@ -77,7 +78,7 @@ const SignUp = () => {
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(saveUser),
+          body: JSON.stringify(savedUser),
         })
           .then((res) => res.json())
           .then(() => {

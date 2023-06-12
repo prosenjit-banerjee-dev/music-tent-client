@@ -13,6 +13,7 @@ import AddClasses from "../Page/Dasahboard/AddClasses/AddClasses";
 import ManageClasses from "../Page/Dasahboard/Manage Classes/ManageClasses";
 import MyClassesIns from "../Page/Dasahboard/Instructor Classes/MyClassesIns";
 import ManageUsers from "../Page/Dasahboard/Manage Users/ManageUsers";
+import ApprovedClasses from "../Page/Approved Classes/ApprovedClasses";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       { path: "myclasses", element: <MyClassesIns></MyClassesIns> },
       { path: "manageclasses", element: <ManageClasses></ManageClasses> },
       { path: "manageusers", element: <ManageUsers></ManageUsers> },
+      {  
+        path: "/classes",
+        element: <ApprovedClasses></ApprovedClasses>,
+      },
     ],
   },
   {

@@ -9,10 +9,14 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { Link } from "react-router-dom";
 import AddClasses from "../AddClasses/AddClasses";
 import DashBoard from "../Dashboard/DashBoard";
+import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 const AdminDashboard = () => {
+  const {user} = useContext(AuthContext);
   const isAdmin = true;
   const isInstructor = true;
-  const isStudent = false;
+  const isStudent = true;
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
