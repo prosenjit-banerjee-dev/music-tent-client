@@ -12,7 +12,7 @@ const NavigationBar = () => {
       <li>
         <NavLink
           to="/"
-          className={({ isActive }) => (isActive ? "bg-sky-200" : "")}
+          className={({ isActive }) => (isActive ? "btn-info" : "")}
         >
           Home
         </NavLink>
@@ -34,24 +34,38 @@ const NavigationBar = () => {
         </details>
       </li>
       <li>
-        <NavLink to="/instructors"
-        className={({ isActive }) => (isActive ? "bg-sky-200" : "")}>Instructors</NavLink>
+        <NavLink
+          to="/instructors"
+          className={({ isActive }) => (isActive ? "btn-info" : "")}
+        >
+          Instructors
+        </NavLink>
       </li>
       {user && (
         <li>
-          <NavLink to="/dashboard">Dashboard</NavLink>
+          <NavLink
+            className={({ isActive }) => (isActive ? "btn-info" : "")}
+            to="/dashboard"
+          >
+            Dashboard
+          </NavLink>
         </li>
       )}
       <li>
-        <NavLink to="/aboutus">About us</NavLink>
+        <NavLink
+          className={({ isActive }) => (isActive ? "btn-info" : "")}
+          to="/aboutus"
+        >
+          About us
+        </NavLink>
       </li>
     </>
   );
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-sky-900 ">
       <div className="navbar-start">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+          <label tabIndex={0} className="btn btn-info btn-sm lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -74,10 +88,12 @@ const NavigationBar = () => {
             {navOptions}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">Music Tent</Link>
+        <Link className="btn btn-ghost normal-case text-xl text-sky-100">Music Tent</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navOptions}</ul>
+        <ul className="menu menu-horizontal px-1 font-semibold text-white">
+          {navOptions}
+        </ul>
       </div>
       <div className="navbar-end">
         {user ? (
@@ -89,11 +105,11 @@ const NavigationBar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-sky-100 rounded-box w-52 "
             >
               <li>
                 <a className="justify-between">
-                 {user?.displayName}
+                  {user?.displayName}
                   {/* Todo identify users role */}
                   <span className="badge"></span>
                 </a>
@@ -102,12 +118,12 @@ const NavigationBar = () => {
                 <p onClick={handleLogOut}>Logout</p>
               </li>
             </ul>
-            <button onClick={handleLogOut} className="btn btn-outline btn-primary">
-            LogOut
-          </button>
+            <button onClick={handleLogOut} className="btn btn-sm btn-info">
+              LogOut
+            </button>
           </div>
         ) : (
-          <Link to="/login" className="btn btn-outline btn-primary">
+          <Link to="/login" className="btn btn-sm btn-info">
             Login
           </Link>
         )}

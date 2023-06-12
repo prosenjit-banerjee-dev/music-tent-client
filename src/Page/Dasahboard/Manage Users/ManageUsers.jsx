@@ -21,13 +21,7 @@ const ManageUsers = () => {
         console.log(data);
         if (data.modifiedCount) {
           refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${user.name} is an Admin Now!`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          Swal.fire("Role Changed!", `${user.name} is an Admin Now!`, "success");
         }
       });
   };
@@ -44,13 +38,11 @@ const ManageUsers = () => {
         console.log(data);
         if (data.modifiedCount) {
           refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${user.name} is an Instructor Now!`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          Swal.fire(
+            "Role Changed!",
+            `${user.name} is an Instructor Now!`,
+            "success"
+          );
         }
       });
   };

@@ -8,7 +8,7 @@ import { Bounce } from "react-awesome-reveal";
 
 const SliderSection = () => {
   return (
-    <div className="carousel w-full">
+    <div className="carousel w-full rounded-lg">
       {/* slide 01 */}
       <div id="slide1" className="carousel-item relative w-full hero">
         <img className="w-full" src={slider1} alt="" />
@@ -23,7 +23,7 @@ const SliderSection = () => {
                 by accomplished educators and musicians.
               </p>
             </Bounce>
-            <button className="btn btn-primary">Join Classes</button>
+            <button className="btn btn-outline btn-info">Join Classes</button>
           </div>
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide4" className="btn btn-circle">
@@ -49,7 +49,7 @@ const SliderSection = () => {
                 by accomplished educators and musicians.
               </p>
             </Bounce>
-            <button className="btn btn-primary">Join Classes</button>
+            <button className="btn btn-outline btn-info">Join Classes</button>
           </div>
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide1" className="btn btn-circle">
@@ -75,7 +75,7 @@ const SliderSection = () => {
                 by accomplished educators and musicians.
               </p>
             </Bounce>
-            <button className="btn btn-primary">Join Classes</button>
+            <button className="btn btn-outline btn-info">Join Classes</button>
           </div>
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide2" className="btn btn-circle">
@@ -101,7 +101,7 @@ const SliderSection = () => {
                 by accomplished educators and musicians.
               </p>
             </Bounce>
-            <button className="btn btn-primary">Join Classes</button>
+            <button className="btn btn-outline btn-info">Join Classes</button>
           </div>
           <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
             <a href="#slide3" className="btn btn-circle">

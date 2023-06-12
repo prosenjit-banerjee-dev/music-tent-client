@@ -19,16 +19,16 @@ const InstructorsSection = () => {
         </Bounce>
       </div>
       {/* Card */}
-      <div className="grid grid-cols-2 gap-10 mt-20 mb-20">
+      <div className="grid grid-cols-3 gap-10 mt-20 mb-20">
         {instructors.map((instructor) => (
           <div
             key={instructor._id}
-            className="card w-3/4 mx-auto bg-base-100 shadow-xl"
+            className="card w-3/4 mx-auto bg-sky-100 shadow-xl p-2"
           >
             <figure>
               <img
                 src={instructor.image}
-                className="max-w-xs rounded-full max-h-32 "
+                className="max-w-xs rounded-full max-h-32 mt-4"
                 alt="Instructors"
               />
             </figure>
@@ -44,7 +44,7 @@ const InstructorsSection = () => {
               </p>
               <span>Taken Classes: {instructor.classesTaken}</span>
               <div className="card-actions mt-4">
-                <button className="btn btn-primary btn-outline">Join Class</button>
+                <button className="btn btn-info btn-sm">Join Class</button>
               </div>
             </div>
           </div>

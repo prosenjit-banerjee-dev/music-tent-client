@@ -44,7 +44,7 @@ const Footer = () => {
             Thursday
           </p>
           <p></p>
-          <button className="btn btn-primary">Join the Class</button>
+          <button className="btn btn-outline btn-info">Join the Class</button>
         </div>
       </div>
       <hr />

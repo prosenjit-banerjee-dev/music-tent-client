@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 const AboutUs = () => {
   return (
-    <div className="bg-gray-100 py-12">
+    <div className="bg-sky-100 py-12">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-8">About Us</h1>
 
@@ -37,6 +39,9 @@ const AboutUs = () => {
             musical dreams!
           </p>
         </div>
+        <Link to="/">
+          <button className="btn btn-info btn-sm btn-outline mt-8">back to Home</button>
+        </Link>
       </div>
     </div>
   );
