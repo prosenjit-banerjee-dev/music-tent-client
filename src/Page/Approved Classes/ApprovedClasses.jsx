@@ -13,15 +13,39 @@ const ApprovedClasses = () => {
       .then((res) => res.json())
       .then((data) => setClasses(data));
   }, []);
-  console.log(classes);
 
   const handleSelectClass = (classData) => {
     if (!user) {
-      Swal.fire("Please log in before selecting a class.")
-      return <Navigate to="/login" state={{from: location}} replace></Navigate>;
+      Swal.fire("Please log in before selecting a class.");
+      return (
+        <Navigate to="/login" state={{ from: location }} replace></Navigate>
+      );
     }
-    
-    
+    const { className, instructorName, price, classImage, _id } = classData;
+    const { displayName, email } = user;
+
+    const myClass = {
+      className,
+      instructorName,
+      price,
+      classImage,
+      displayName,
+      email,
+      classId: _id,
+    };
+    fetch("http://localhost:5000/selectedclasses", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(myClass),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire("Yeah!", "This class is selected!", "success");
+        }
+      });
   };
   return (
     <div className="bg-gray-100 py-12">
