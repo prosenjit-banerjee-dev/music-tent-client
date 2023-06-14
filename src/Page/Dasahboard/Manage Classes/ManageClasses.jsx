@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { Bounce } from "react-awesome-reveal";
 import Swal from "sweetalert2";
 const ManageClasses = () => {
   const { data: totalClasses = [], refetch } = useQuery(
     ["totalclasses"],
     async () => {
-      const res = await fetch("http://localhost:5000/classes");
+      const res = await fetch("https://music-tent-server.vercel.app/classes");
       return res.json();
     }
   );
+  console.log(totalClasses);
 
   const handleApprovedClass = (classes) => {
-    fetch(`http://localhost:5000/classes/${classes?._id}`, {
+    fetch(`https://music-tent-server.vercel.app/classes/${classes?._id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -23,7 +23,11 @@ const ManageClasses = () => {
       .then((data) => {
         console.log(data);
         if (data.modifiedCount) {
-          Swal.fire("Class Approved!", "Successfully Approved this Class", "success");
+          Swal.fire(
+            "Class Approved!",
+            "Successfully Approved this Class",
+            "success"
+          );
           refetch();
         }
       });
@@ -38,7 +42,7 @@ const ManageClasses = () => {
       confirmButtonText: "Yes, deny!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/classes/${classes?._id}`, {
+        fetch(`https://music-tent-server.vercel.app/classes/${classes?._id}`, {
           method: "PATCH",
           headers: {
             "content-type": "application/json",
@@ -79,7 +83,7 @@ const ManageClasses = () => {
           </tr>
         </thead>
         <tbody className="bg-sky-100">
-          {totalClasses.map((classes) => (
+          {totalClasses?.map((classes) => (
             <tr key={classes._id}>
               <td>
                 <div className="avatar">

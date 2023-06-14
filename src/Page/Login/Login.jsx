@@ -46,7 +46,7 @@ const Login = () => {
           email: loggedInUser.email,
           role: "student",
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://music-tent-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -58,7 +58,7 @@ const Login = () => {
             navigate(from, { replace: true });
           });
       })
-      .error((error) => console.error(error.message));
+      .catch((error) => console.error(error.message));
   };
   return (
     <>

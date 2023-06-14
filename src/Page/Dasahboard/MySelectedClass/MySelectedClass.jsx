@@ -16,7 +16,7 @@ const MySelectedClass = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/selectedclasses/${classes._id}`, {
+        fetch(`https://music-tent-server.vercel.app/selectedclasses/${classes._id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -55,7 +55,7 @@ const MySelectedClass = () => {
           </button>
           <figure className="px-10 pt-10">
             <img
-              src={classes.classImage}
+              src={classes?.classImage}
               alt="selected class"
               className="rounded-xl"
             />
@@ -63,12 +63,12 @@ const MySelectedClass = () => {
           <div className="card-body items-center text-center">
             <p className="flex items-center gap-x-2">
               Class name:{" "}
-              <span className="card-title">{classes.className}</span>
+              <span className="card-title">{classes?.className}</span>
             </p>
             <p>Your Instructor: {classes.instructorName}</p>
-            <p>$ {classes.price}</p>
+            <p>$ {classes?.price}</p>
             <div className="card-actions">
-              <Link to="/payment">
+              <Link to="/payment" state={{ price: classes.price }}>
                 <button className="btn btn-info ">Pay Now</button>
               </Link>
             </div>

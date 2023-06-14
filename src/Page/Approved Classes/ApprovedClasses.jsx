@@ -11,7 +11,7 @@ const ApprovedClasses = () => {
   const location = useLocation();
   const [classes, setClasses] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/classes/approved")
+    fetch("https://music-tent-server.vercel.app/classes/approved")
       .then((res) => res.json())
       .then((data) => setClasses(data));
   }, []);
@@ -34,7 +34,7 @@ const ApprovedClasses = () => {
       email,
       classId: _id,
     };
-    fetch("http://localhost:5000/selectedclasses", {
+    fetch("https://music-tent-server.vercel.app/selectedclasses", {
       method: "POST",
       headers: {
         "content-type": "application/json",

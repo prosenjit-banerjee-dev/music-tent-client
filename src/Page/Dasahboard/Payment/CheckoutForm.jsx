@@ -1,10 +1,25 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import useSecureAxios from "../../../hooks/UseSecureAxios";
+import { AuthContext } from "../../../providers/AuthProvider";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ price }) => {
   const [cardError, setCardError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
+  const [secureAxios] = useSecureAxios();
+  const [clientSecret, setClientSecret] = useState("");
+  const { user } = useContext(AuthContext);
+  const [processing, setProcessing] = useState(false);
+  const [transactionId, setTransactionId] = useState("");
+  console.log(price);
+  useEffect(() => {
+    secureAxios.post("/create-payment-intent", { price }).then((res) => {
+      console.log(res.data.clientSecret);
+      setClientSecret(res.data.clientSecret);
+    });
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
@@ -21,13 +36,33 @@ const CheckoutForm = () => {
       card,
     });
     if (error) {
-      console.log("[error]", error);
+      console.log("error", error);
       setCardError(error.message);
     } else {
       setCardError("");
-      console.log("[PaymentMethod]", paymentMethod);
+      console.log("PaymentMethod", paymentMethod);
+    }
+    setProcessing(true);
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            email: user?.email || "Unknown",
+            name: user?.displayName || "Unknown",
+          },
+        },
+      });
+    if (confirmError) {
+      console.log(confirmError);
+    }
+    console.log(paymentIntent);
+    setProcessing(false);
+    if (paymentIntent.status === "succeeded") {
+      setTransactionId(paymentIntent.id);
     }
   };
+
   return (
     <>
       <h1 className="mb-10 mt-5 text-3xl font-bold text-center">
@@ -57,13 +92,21 @@ const CheckoutForm = () => {
             },
           }}
         />
-        <button className="btn btn-info mt-6" type="submit" disabled={!stripe}>
+        <button
+          className="btn btn-info mt-6"
+          type="submit"
+          disabled={!stripe || !clientSecret || processing}
+        >
           Pay
         </button>
       </form>
       {cardError && (
         <p className="text-red-500 max-w-md  mx-auto">{cardError}</p>
       )}
+      { transactionId && (
+        <p className="text-green-500 max-w-md  mx-auto">Transaction complete with transactionId : {transactionId}</p>
+      )}
+
     </>
   );
 };

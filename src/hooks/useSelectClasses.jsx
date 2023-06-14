@@ -10,7 +10,7 @@ const useSelectClasses = () => {
     queryKey: ["selectedClasses", user?.email],
     queryFn: async () => {
       const response = await secureAxios(
-        `http://localhost:5000/selectedclasses?email=${user?.email}`
+        `https://music-tent-server.vercel.app/selectedclasses?email=${user?.email}`
       );
       return response.data;
     },

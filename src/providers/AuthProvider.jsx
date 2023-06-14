@@ -45,7 +45,7 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       console.log(currentUser, "current user");
       if (currentUser) {
-        axios.post('http://localhost:5000/jwt',{email:currentUser.email})
+        axios.post('https://music-tent-server.vercel.app/jwt',{email:currentUser.email})
         .then(data => {
           const token = data.data.token;
           console.log(token);

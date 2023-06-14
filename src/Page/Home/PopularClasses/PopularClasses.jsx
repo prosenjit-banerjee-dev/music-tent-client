@@ -6,7 +6,7 @@ import {  Slide } from "react-awesome-reveal";
 const PopularClasses = () => {
   const [popularClasses, setPopularClasses] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/popularClasses")
+    fetch("https://music-tent-server.vercel.app/popularClasses")
       .then((res) => res.json())
       .then((data) => setPopularClasses(data));
   }, []);

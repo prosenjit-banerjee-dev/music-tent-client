@@ -33,7 +33,7 @@ const AddClasses = () => {
     };
     console.log("Added class:", addedClass);
 
-    fetch("http://localhost:5000/classes", {
+    fetch("https://music-tent-server.vercel.app/classes", {
       method: "POST",
       headers: {
         "content-type": "application/json",

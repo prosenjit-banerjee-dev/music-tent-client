@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet-async";
 const InstructorsSection = () => {
   const [instructors, setInstructors] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://music-tent-server.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setInstructors(data));
   }, []);

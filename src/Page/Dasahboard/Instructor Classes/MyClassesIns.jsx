@@ -6,7 +6,7 @@ const MyClassesIns = () => {
   //! TODO Feedback update when admin denied and enrolled students shown;update
   const [myClasses, setMyClasses] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/classes")
+    fetch("https://music-tent-server.vercel.app/classes")
       .then((res) => res.json())
       .then((data) => setMyClasses(data));
   }, []);

@@ -2,10 +2,14 @@ import React from "react";
 import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { useLocation } from "react-router-dom";
 
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
 const Payment = () => {
+  const location = useLocation();
+  const { price } = location.state;
+  const total = parseFloat(price.toFixed(2));
   return (
     <div>
       {/* Heading */}
@@ -18,7 +22,7 @@ const Payment = () => {
       </div>
       {/* Body */}
       <Elements stripe={stripePromise}>
-        <CheckoutForm></CheckoutForm>
+        <CheckoutForm price={total}></CheckoutForm>
       </Elements>
     </div>
   );

@@ -4,14 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../providers/AuthProvider';
 
 
-
+const secureAxios = axios.create({
+  baseURL: 'https://music-tent-server.vercel.app', 
+});
 const useSecureAxios = () => {
   const { logOut } = useContext(AuthContext); 
   const navigate = useNavigate(); 
-
-  const secureAxios = axios.create({
-    baseURL: 'http://localhost:5000', 
-  });
 
   useEffect(() => {
     secureAxios.interceptors.request.use((config) => {

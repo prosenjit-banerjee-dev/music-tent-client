@@ -10,7 +10,7 @@ const TestimonialsSection = () => {
   const { data: testimonials = [], refetch } = useQuery(
     ["testimonials"],
     async () => {
-      const res = await fetch("http://localhost:5000/testimonials");
+      const res = await fetch("https://music-tent-server.vercel.app/testimonials");
       return res.json();
     }
   );

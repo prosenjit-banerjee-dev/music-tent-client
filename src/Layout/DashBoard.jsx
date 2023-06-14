@@ -11,7 +11,7 @@ import UseInstructorStatus from "../hooks/useInstructorStatus";
 
 const DashBoard = () => {
   const { data: users = [] } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/users");
+    const res = await fetch("https://music-tent-server.vercel.app/users");
     return res.json();
   });
   const [isAdmin] = UseAdminStatus();
