@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
-
+import logo from '../../../assets/logo.png'
 const NavigationBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
@@ -80,8 +80,8 @@ const NavigationBar = () => {
             {navOptions}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl text-sky-100">
-          Music Tent
+        <Link to="/" className="btn btn-ghost normal-case text-xl text-sky-100">
+       <img src={logo} className="w-12 h-12 rounded-full" />Music Tent
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

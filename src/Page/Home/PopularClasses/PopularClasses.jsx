@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import piano from "../../../assets/Popular Classes/piano-class.jpg";
 import { useEffect, useState } from "react";
+import {  Slide } from "react-awesome-reveal";
 
 const PopularClasses = () => {
   const [popularClasses, setPopularClasses] = useState([]);
@@ -21,20 +22,25 @@ const PopularClasses = () => {
           unforgettable musical memories.
         </p>
       </div>
+
       <div className="grid lg:grid-cols-3 gap-10">
         {popularClasses?.map((popularClasses) => (
-          <div
-            key={popularClasses._id}
-            className="card w-96 bg-sky-100 shadow-2xl image-full"
-          >
-            <figure>
-              <img src={popularClasses.picture} alt={popularClasses.imageAlt} />
-            </figure>
-            <div className="card-body text-center">Class Name:
-              <h2 className="text-3xl ">{popularClasses.name}</h2>
-              <p>Total Students: {popularClasses.students}</p>
+          <Slide key={popularClasses._id} >
+            <div className="card w-96 bg-sky-100 shadow-2xl image-full">
+              <figure>
+                <img
+                  src={popularClasses.classImage}
+                  alt="Popular Class"
+                />
+              </figure>
+
+              <div className="card-body text-center">
+                Class Name:
+                <h2 className="text-3xl ">{popularClasses.className}</h2>
+                <p>Total Students: {popularClasses.enrolledStudents}</p>
+              </div>
             </div>
-          </div>
+          </Slide>
         ))}
       </div>
     </div>

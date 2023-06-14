@@ -54,12 +54,12 @@ const AddClasses = () => {
   };
 
   return (
-    <div className="bg-sky-100 mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">Add Class</h1>
+    <div className="mx-auto p-4 ">
+      <h1 className="text-2xl font-semibold mb-4 text-center">Add Class</h1>
       {/* Form */}
       <form
         onSubmit={handleAddClass}
-        className="card bg-base-100 shadow-xl max-w-xl p-10 mx-auto"
+        className="card bg-base-100 shadow-xl max-w-full p-10 mx-auto"
       >
         <div className="mb-4">
           <label htmlFor="className" className="block mb-2 font-semibold">

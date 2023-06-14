@@ -14,7 +14,7 @@ const MyClassesIns = () => {
     <>
       <div className="overflow-x-auto container">
         <Bounce cascade>
-          <h1 className="mb-10 mt-5 text-3xl font-bold text-center">
+          <h1 className="mb-10 mt-5 text-2xl font-semibold text-center">
             My Classes
           </h1>
         </Bounce>

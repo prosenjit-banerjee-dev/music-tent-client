@@ -1,6 +1,7 @@
 # Music Tent Instruments Summer School
 
-![Music Tent Instruments Summer School Logo](logo.png)
+![Music Tent Instruments Summer School Logo](/src/assets/logo.png)
+Live site Link : 
 
 Welcome to the Music Tent Instruments Summer School! This readme provides an overview of our summer school program and the features offered on our website.
 

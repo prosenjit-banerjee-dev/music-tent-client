@@ -50,7 +50,7 @@ const ManageUsers = () => {
   return (
     <div className="overflow-x-auto">
       <Bounce cascade>
-        <h1 className="mb-10 mt-5 text-3xl font-bold text-center">
+        <h1 className="mb-10 mt-5 text-2xl font-semibold text-center">
           Manage Users
         </h1>
       </Bounce>

@@ -60,7 +60,7 @@ const ManageClasses = () => {
   return (
     <div className="overflow-x-auto">
       <Bounce cascade>
-        <h1 className="mb-10 text-3xl font-bold text-center mt-5">
+        <h1 className="mb-10 text-2xl font-semibold text-center mt-5">
           Manage Classes
         </h1>
       </Bounce>
@@ -127,7 +127,7 @@ const ManageClasses = () => {
                     <button
                       onClick={() => handleApprovedClass(classes)}
                       className="btn btn-outline mb-2 btn-success btn-xs"
-                     
+                      disabled="disabled"
                     >
                       Approved
                     </button>

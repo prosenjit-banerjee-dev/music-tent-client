@@ -5,7 +5,6 @@ import Login from "../Page/Login/Login";
 import SignUp from "../Page/SignUp/SignUp";
 import ErrorPage from "../Page/ErrorPage/ErrorPage";
 import InstructorsSection from "../Page/InstructorsSection/InstructorsSection";
-import AdminDashboard from "../Page/Dasahboard/AdminDashboard/AdminDashboard";
 import AboutUs from "../Page/AboutUs/AboutUs";
 import Private from "../providers/Private";
 import AddClasses from "../Page/Dasahboard/AddClasses/AddClasses";
@@ -14,6 +13,11 @@ import ManageClasses from "../Page/Dasahboard/Manage Classes/ManageClasses";
 import MyClassesIns from "../Page/Dasahboard/Instructor Classes/MyClassesIns";
 import ManageUsers from "../Page/Dasahboard/Manage Users/ManageUsers";
 import ApprovedClasses from "../Page/Approved Classes/ApprovedClasses";
+import MySelectedClass from "../Page/Dasahboard/MySelectedClass/MySelectedClass";
+import Payment from "../Page/Dasahboard/Payment/Payment";
+import DashboardCheck from "../providers/DashboardCheck";
+import DashBoard from "../Layout/DashBoard";
+
 
 export const router = createBrowserRouter([
   {
@@ -42,23 +46,39 @@ export const router = createBrowserRouter([
         element: <AboutUs></AboutUs>,
       },
       {
-        path: "dashboard",
-        element: (
-          <Private>
-            <AdminDashboard></AdminDashboard>
-          </Private>
-        ),
-      },
-      { path: "addclasses", element: <AddClasses></AddClasses> },
-      { path: "myclasses", element: <MyClassesIns></MyClassesIns> },
-      { path: "manageclasses", element: <ManageClasses></ManageClasses> },
-      { path: "manageusers", element: <ManageUsers></ManageUsers> },
-      {  
-        path: "/classes",
+        path: "classes",
         element: <ApprovedClasses></ApprovedClasses>,
+      },
+      {
+        path: "payment",
+        element: <Payment></Payment>,
       },
     ],
   },
+  {
+    path: "dashboard",
+    element: (
+      <Private>
+        <DashBoard></DashBoard>
+      </Private>
+    ),
+    children: [
+      { path: "addclasses", element: <AddClasses></AddClasses> },
+      { path: "myclasses", element: <MyClassesIns></MyClassesIns> },
+      {
+        path: "myselectedclasses",
+        element: <MySelectedClass></MySelectedClass>,
+      },
+      { path: "manageclasses", element: <ManageClasses></ManageClasses> },
+      { path: "manageusers", element: <ManageUsers></ManageUsers> },
+
+      {
+        path: "/dashboardcheck",
+        element: <DashboardCheck></DashboardCheck>,
+      },
+    ],
+  },
+
   {
     path: "*",
     element: <ErrorPage></ErrorPage>,
