@@ -5,17 +5,26 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { Link, Outlet } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Footer from "../Page/Shared/Footer/Footer";
+import { Helmet } from "react-helmet-async";
+import UseAdminStatus from "../hooks/UseAdminStatus";
+import UseInstructorStatus from "../hooks/useInstructorStatus";
 
 const DashBoard = () => {
   const { data: users = [] } = useQuery(["users"], async () => {
     const res = await fetch("http://localhost:5000/users");
     return res.json();
   });
-  const isAdmin = true;
-  const isInstructor = true;
-  const isStudent = true;
+  const [isAdmin] = UseAdminStatus();
+  const [isInstructor] = UseInstructorStatus();
+
+  // const isAdmin = true;
+  // const isInstructor = false;
+  // const isStudent = false;
   return (
     <div>
+      <Helmet>
+        <title>Music Tent | Dashboard</title>
+      </Helmet>
       <NavigationBar></NavigationBar>
       <div className="flex">
         {/* Sidebar */}
@@ -28,7 +37,7 @@ const DashBoard = () => {
             {isInstructor && (
               <h1 className="text-xl font-semibold">Instructor Dashboard</h1>
             )}
-            {isStudent && (
+            {isAdmin || isInstructor || (
               <h1 className="text-xl font-semibold">Student Dashboard</h1>
             )}
           </div>
@@ -70,7 +79,7 @@ const DashBoard = () => {
                 </Link>
               </>
             )}
-            {isStudent && (
+            {isAdmin || isInstructor || (
               <>
                 <Link
                   to="/dashboard/myselectedclasses"
@@ -80,7 +89,7 @@ const DashBoard = () => {
                   My Selected Classes
                 </Link>
                 <Link
-                  to="/dashboard/myclasses"
+                  to="/dashboard/myenrolledclasses"
                   className="flex items-center p-4 text-gray-300 hover:bg-gray-700"
                 >
                   <SiGoogleclassroom className="fas fa-shopping-cart mr-2"></SiGoogleclassroom>

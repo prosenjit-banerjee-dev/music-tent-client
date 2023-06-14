@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   return (
     <div className="bg-sky-100 py-12">
+      <Helmet>
+        <title>Music Tent | About Us</title>
+      </Helmet>
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-8">About Us</h1>
 

@@ -5,6 +5,7 @@ import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const { signIn, googleLogIn } = useContext(AuthContext);
@@ -61,6 +62,9 @@ const Login = () => {
   };
   return (
     <>
+    <Helmet>
+        <title>Music Tent | Login</title>
+      </Helmet>
       <div className="hero shadow-2xl">
         <img src={bg} alt="" />
         <div className="flex flex-col lg:flex-row gap-x-40 items-center">

@@ -17,6 +17,7 @@ import MySelectedClass from "../Page/Dasahboard/MySelectedClass/MySelectedClass"
 import Payment from "../Page/Dasahboard/Payment/Payment";
 import DashboardCheck from "../providers/DashboardCheck";
 import DashBoard from "../Layout/DashBoard";
+import MyEnrolledClasses from "../Page/Dasahboard/MyEnrolledClasses/MyEnrolledClasses";
 
 
 export const router = createBrowserRouter([
@@ -63,19 +64,21 @@ export const router = createBrowserRouter([
       </Private>
     ),
     children: [
+      // instructor
       { path: "addclasses", element: <AddClasses></AddClasses> },
       { path: "myclasses", element: <MyClassesIns></MyClassesIns> },
+      // Students
       {
         path: "myselectedclasses",
         element: <MySelectedClass></MySelectedClass>,
       },
+      {
+        path: "myenrolledclasses",
+        element: <MyEnrolledClasses></MyEnrolledClasses>,
+      },
+      // ADMIN
       { path: "manageclasses", element: <ManageClasses></ManageClasses> },
       { path: "manageusers", element: <ManageUsers></ManageUsers> },
-
-      {
-        path: "/dashboardcheck",
-        element: <DashboardCheck></DashboardCheck>,
-      },
     ],
   },
 

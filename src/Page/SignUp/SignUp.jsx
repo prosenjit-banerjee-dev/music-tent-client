@@ -4,6 +4,7 @@ import { FaGoogle, FaGithub, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, googleLogIn } =
@@ -89,6 +90,9 @@ const SignUp = () => {
   };
   return (
     <>
+    <Helmet>
+        <title>Music Tent | SignUp</title>
+      </Helmet>
       <div className="hero shadow-2xl bg-sky-300">
         <div className="flex flex-col lg:flex-row gap-x-40 items-center">
           <div className="card-body">

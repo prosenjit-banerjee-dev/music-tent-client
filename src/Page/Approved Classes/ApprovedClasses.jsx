@@ -4,6 +4,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import { Navigate, useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Zoom } from "react-awesome-reveal";
+import { Helmet } from "react-helmet-async";
 
 const ApprovedClasses = () => {
   const { user } = useContext(AuthContext);
@@ -49,6 +50,9 @@ const ApprovedClasses = () => {
   };
   return (
     <div className="bg-gray-100 py-12">
+       <Helmet>
+        <title>Music Tent | Classes</title>
+      </Helmet>
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-8">
           Available Classes

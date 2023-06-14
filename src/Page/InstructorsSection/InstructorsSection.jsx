@@ -1,5 +1,6 @@
 import { Bounce } from "react-awesome-reveal";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const InstructorsSection = () => {
   const [instructors, setInstructors] = useState([]);
@@ -10,6 +11,9 @@ const InstructorsSection = () => {
   }, []);
   return (
     <div>
+       <Helmet>
+        <title>Music Tent | Instructors</title>
+      </Helmet>
       <div className="lg:max-w-md mx-auto text-center">
         <Bounce cascade>
           <h1 className="mb-5 text-5xl font-bold mt-5">Our Instructors</h1>
